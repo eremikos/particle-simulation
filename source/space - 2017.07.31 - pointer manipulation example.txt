@@ -1,0 +1,53 @@
+	// Duplicate calculateAcceleration(), but with pointers that append to entity[]
+
+	int numbers[3];
+	numbers[0] = 1;
+	numbers[1] = 3;
+	numbers[2] = 7;
+	cout << numbers[0] << "\t" << numbers[1] << "\t" << numbers[2] << endl;
+	int* clone = new int[3];
+	clone[0] = numbers[0] + 2;
+	clone[1] = numbers[1] + 2;
+	clone[2] = numbers[2] + 2;
+	cout << clone[0] << "\t" << clone[1] << "\t" << clone[2] << endl;
+	cout << numbers << "\t" << clone << endl;
+	cout << endl;
+
+	cout << numbers[0] << "\t" << numbers[1] << "\t" << numbers[2] << endl;
+	numbers[0] += clone[0];
+	numbers[1] += clone[1];
+	numbers[2] += clone[2];
+	cout << clone[0] << "\t" << clone[1] << "\t" << clone[2] << endl;
+	cout << numbers << "\t" << clone << endl;
+	cout << endl;
+
+	cout << clone[0] << "\t" << clone[1] << "\t" << clone[2] << endl;
+	cout << numbers[0] << "\t" << numbers[1] << "\t" << numbers[2] << endl;
+	delete[] clone;
+	clone = nullptr;
+	cout << numbers << "\t" << clone << endl;
+
+	//-------------------------------------------------------------------//
+
+
+	double* clonedPos = new double[3];
+	//cout << entity[1].getPosIndex(0) << endl;
+	for(int i = 0; i < 3; i++){
+
+		clonedPos[i] = entity[1].getPosIndex(i);
+	}
+
+	cout << clonedPos[0] << "\t" << clonedPos[1] << "\t" << clonedPos[2] << endl;
+
+	delete[] clonedPos;
+	clonedPos = nullptr;
+
+	//--------------------------------------------------------------------//
+
+	double* clone = new double[3]; 
+	clone = entity[1].positionVector();
+
+	cout << clone[0] << "\t" << clone[1] << "\t" << clone[2] << endl;
+
+	delete[] clone;
+	clone = nullptr;
