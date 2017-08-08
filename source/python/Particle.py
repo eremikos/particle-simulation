@@ -25,9 +25,6 @@ class main(object):
         self.velocity = [None, None, None]
         self.acceleration = [None, None, None]
 
-    def construct(self):
-        pass
-
 ### INPUT VALIDATORS
 
     def isCharacter(self, inputVar):
@@ -235,7 +232,17 @@ class main(object):
         return temp
 
 ### CLASS FUNCTIONS - COLLISION DETECTION/RESPONSE
+    '''
+        I may need to make the subsequent functions of the Particle class
+        for the collision detection part of the file for the actual running
+        of the program (or rather, <Engine.py>) since it seems that the function
+        for particle collision will not delete a constructed class object from
+        inside of the class file itself, but it seems it will allow for it if
+        it is done inside of the <Engine.py> file.
 
+        Will need to ascertain the possibility of keeping the <collision> method
+        inside of its pertainig class.
+    '''
     # Unnecessary, may delete
     def proximityAlert(self, flag):
         flag_list = ["0th Degree Contact: Avoidance.",
@@ -261,7 +268,7 @@ class main(object):
 
                     if (proximity <= contact):
                         self.proximityAlert(3)
-                        collision(self, other)
+                        self.collision(other)
                         
             else:
                 self.proximityAlert(0)
@@ -269,9 +276,9 @@ class main(object):
             pass
 
     def collision(self, other):
-
+        
         new_mass = self.getMass() + other.getMass()
-        new_radius = pow(((self.getRadius()**3.) + (other.getRadius**3.)), 1./3.)
+        new_radius = pow((((self.getRadius())**3.0)+((other.getRadius())**3.0)), 1/3.)
         new_velocity = [0, 0, 0]
 
         for i in range(3):
@@ -279,10 +286,13 @@ class main(object):
 
         if (self.getMass() > other.getMass()):
             # Particle <self> is more massive; delete Particle <other>
-            pass
+            #other.close()
+            del other
         else:
             # Particle <other> is more massive; delete Particle <self>
-            pass
+            #self.close()
+            del self
 
+        
             
                 
