@@ -1,6 +1,6 @@
 import Particle
 
-x = [Particle.main(), Particle.main()]
+x = [Particle.main(), Particle.main(), Particle.main()]
 
 # Initializing data for Particle <entity_1>
 x[0].setName("Earth")
@@ -18,15 +18,40 @@ x[1].setPosition(3.84399*10**8, 1.0, -1.0)
 x[1].setVelocity(0.0,1022,0.0)
 x[1].setAcceleration(0.0,0.0,0.0)
 
+# Initializing data for Particle <entity_3>
+x[2].setName("Apollo")
+x[2].setMass(2.88*10**4)
+x[2].setRadius(10.0)
+x[2].setPosition(2.88299*10**8, 6.2197*10**7, 1.61803*10**4)
+x[2].setVelocity(0.0, 1175.996, 0.0)
+x[2].setAcceleration(0.0, 0.0, 0.0)
+
 # Adjusting acceleration data for all Particle entities
 for i in range(len(x)):
-    clone = x[i].getAcceleration()
-    if (i == (len(x)-1)):
-        temp = x[i].adjustAcceleration(x[0])
-    else:
-        temp = x[i].adjustAcceleration(x[i+1])
+    '''
+        Actually, I may want to make this into an
+        initialization function, as this will be pertinent
+        to the event of a collision and a particle will be
+        deleted from the Particle_list and the values of the
+        accelerations acting on the new Particle_list will
+        need to be updated.
 
-    for j in range(3):
-        copy = clone[j] + temp[j]
-        x[i].setAccIndex(j, copy)
+        ### NEEDS EDITING. GIVES WRONG VALUES FOR N>2
+            # Edit appears to be working 2017.08.07-22.03
+    '''
+
+    for j in range(len(x)):
+        if (j == i):
+            continue
+        else:
+            clone = x[i].getAcceleration()
+            temp = x[i].adjustAcceleration(x[j])
+
+            for k in range(3):
+                copy = clone[k] + temp[k]
+                x[i].setAccIndex(k, copy)
     
+print x[0].getAcceleration()
+print x[1].getAcceleration()
+print x[2].getAcceleration()
+
