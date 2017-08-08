@@ -236,5 +236,53 @@ class main(object):
 
 ### CLASS FUNCTIONS - COLLISION DETECTION/RESPONSE
 
+    # Unnecessary, may delete
+    def proximityAlert(self, flag):
+        flag_list = ["0th Degree Contact: Avoidance.",
+                     "1st Degree Contact: Wide Miss.",
+                     "2nd Degree Contact: Near Miss.",
+                     "3rd Degree Contatc: Collision!"]
+        try:
+            print flag_list[flag]
+        except:
+            raise AttributeError, "AttributeError: flag type"
+        
+    def detectProximity(self, other, active = True):
+        if (active):
+            # If for some reason I do not wish for this to run always.
+            proximity = self.distance(other)
+            contact = self.radius + other.radius
 
-    
+            if (proximity < (10*contact)):
+                self.proximityAlert(1)
+
+                if (proximity < (3*contact)):
+                    self.proximityAlert(2)
+
+                    if (proximity <= contact):
+                        self.proximityAlert(3)
+                        collision(self, other)
+                        
+            else:
+                self.proximityAlert(0)
+        else:
+            pass
+
+    def collision(self, other):
+
+        new_mass = self.getMass() + other.getMass()
+        new_radius = pow(((self.getRadius()**3.) + (other.getRadius**3.)), 1./3.)
+        new_velocity = [0, 0, 0]
+
+        for i in range(3):
+            new_velocity[i] = self.getVelIndex(i) + other.getVelIndex(i)
+
+        if (self.getMass() > other.getMass()):
+            # Particle <self> is more massive; delete Particle <other>
+            pass
+        else:
+            # Particle <other> is more massive; delete Particle <self>
+            pass
+
+            
+                
