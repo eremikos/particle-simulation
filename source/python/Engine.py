@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import Particle
 
 x = [Particle.main(), Particle.main(), Particle.main()]
@@ -27,31 +28,47 @@ x[2].setVelocity(0.0, 1175.996, 0.0)
 x[2].setAcceleration(0.0, 0.0, 0.0)
 
 # Adjusting acceleration data for all Particle entities
-for i in range(len(x)):
-    '''
-        Actually, I may want to make this into an
-        initialization function, as this will be pertinent
-        to the event of a collision and a particle will be
-        deleted from the Particle_list and the values of the
-        accelerations acting on the new Particle_list will
-        need to be updated.
+def updateAcceleration():
+    for i in range(len(x)):
+        '''
+            Actually, I may want to make this into an
+            initializer/updater function, as this will be pertinent
+            to the event of a collision and a particle will be
+            deleted from the Particle_list and the values of the
+            accelerations acting on the new Particle_list will
+            need to be updated.
 
-        ### NEEDS EDITING. GIVES WRONG VALUES FOR N>2
-            # Edit appears to be working 2017.08.07-22.03
-    '''
+            ### NEEDS EDITING. GIVES WRONG VALUES FOR N>2
+                # Edit appears to be working 2017.08.07-22.03
 
-    for j in range(len(x)):
-        if (j == i):
-            continue
-        else:
-            clone = x[i].getAcceleration()
-            temp = x[i].adjustAcceleration(x[j])
+                # Updater function works as desired
+        '''
 
-            for k in range(3):
-                copy = clone[k] + temp[k]
-                x[i].setAccIndex(k, copy)
-    
+        for j in range(len(x)):
+            if (j == i):
+                continue
+            else:
+                clone = x[i].getAcceleration()
+                temp = x[i].adjustAcceleration(x[j])
+
+                for k in range(3):
+                    copy = clone[k] + temp[k]
+                    x[i].setAccIndex(k, copy)
+
+# All zeros, as per the initialization data   
 print x[0].getAcceleration()
 print x[1].getAcceleration()
 print x[2].getAcceleration()
 
+updateAcceleration()
+
+# New values, as per the graviational influences exerted 
+print x[0].getAcceleration()
+print x[1].getAcceleration()
+print x[2].getAcceleration()
+'''
+    The <collision()> function may have to be adapted into the
+    <Engine.py> file in order to work out the appropriate alterations
+    to the members of the Particle object list, such as deleting a
+    member when a collision occurs.
+'''
