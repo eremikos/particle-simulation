@@ -2,7 +2,7 @@
 from math import pi
 
 attractor = 6.67384*(10**-11)
-delta = pow(10.0, -3.0)
+delta = pow(10.0, 0.0)
 
 class main(object):
 
@@ -231,67 +231,6 @@ class main(object):
 
         return temp
 
-### CLASS FUNCTIONS - COLLISION DETECTION/RESPONSE
-    '''
-        I may need to make the subsequent functions of the Particle class
-        for the collision detection part of the file for the actual running
-        of the program (or rather, <Engine.py>) since it seems that the function
-        for particle collision will not delete a constructed class object from
-        inside of the class file itself, but it seems it will allow for it if
-        it is done inside of the <Engine.py> file.
-
-        Will need to ascertain the possibility of keeping the <collision> method
-        inside of its pertainig class.
-    '''
-    # Unnecessary, may delete
-    def proximityAlert(self, flag):
-        flag_list = ["0th Degree Contact: Avoidance.",
-                     "1st Degree Contact: Wide Miss.",
-                     "2nd Degree Contact: Near Miss.",
-                     "3rd Degree Contatc: Collision!"]
-        try:
-            print flag_list[flag]
-        except:
-            raise AttributeError, "AttributeError: flag type"
-        
-    def detectProximity(self, other, active = True):
-        if (active):
-            # If for some reason I do not wish for this to run always.
-            proximity = self.distance(other)
-            contact = self.radius + other.radius
-
-            if (proximity < (10*contact)):
-                self.proximityAlert(1)
-
-                if (proximity < (3*contact)):
-                    self.proximityAlert(2)
-
-                    if (proximity <= contact):
-                        self.proximityAlert(3)
-                        self.collision(other)
-                        
-            else:
-                self.proximityAlert(0)
-        else:
-            pass
-
-    def collision(self, other):
-        
-        new_mass = self.getMass() + other.getMass()
-        new_radius = pow((((self.getRadius())**3.0)+((other.getRadius())**3.0)), 1/3.)
-        new_velocity = [0, 0, 0]
-
-        for i in range(3):
-            new_velocity[i] = self.getVelIndex(i) + other.getVelIndex(i)
-
-        if (self.getMass() > other.getMass()):
-            # Particle <self> is more massive; delete Particle <other>
-            #other.close()
-            del other
-        else:
-            # Particle <other> is more massive; delete Particle <self>
-            #self.close()
-            del self
 
         
             
